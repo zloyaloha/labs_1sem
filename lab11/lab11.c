@@ -1,7 +1,8 @@
 //* Филиппов Владимир М80-110Б-22 *//
 //* Кодирование по Цезарю с переменным ключом +3 *//
 //* Тесты: don li Volga li te4et kotomku na ple40 *//
-//* qwertyuiopasdfghjklzxcvbnm *//
+//* qwertyuiopasdfghjklzxcvbnm *// 
+//* Viva Victoria *//
 
 #include <stdio.h>
 
