@@ -73,10 +73,12 @@ int main() {
         if (state == NUM) {
             num = ClayNum(ch, k, num);
             ++k;
-        } else if (state == CONTINUE){
+        } else if (state == CONTINUE) {
             ToDouble(num, sign);
             num = ' ' - 32;
             k = 0;
+            sign = '+';
         }
+
     }
 }
