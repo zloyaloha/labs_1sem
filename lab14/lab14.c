@@ -5,55 +5,7 @@
 #define ENTER 3
 #define END 4
 
-int StateUpdate(char c) {
-    if (c == '\n') {
-        return ENTER;
-    } else if (c == ' ') {
-        return SPACE;
-    } else if (c >= '0' && c <= '9') {
-        return NUM;
-    } else {
-        return END;
-    }
-}
-
-int ClayNum(char c, int num, int flag) {
-    if (flag == 1) {
-        num *= 10;
-    }
-    num += c - '0';
-    return num;
-}
-
-int main() {
-    int n = 1, maxn = 100, state = 0, flag = 0, number = 0, inI = 0, inJ = 0;
-    int a[maxn][maxn];
-    char c;
-    while (1) {
-        c = getchar();
-        state = StateUpdate(c);
-        if (state == NUM) {
-            number = ClayNum(c, number, flag);
-            flag = 1;
-        } else if (state == SPACE) {
-            a[inJ][inI] = number;
-            number = 0;
-            inI += 1;
-            flag = 0;
-        } else if (state == ENTER){
-            a[inJ][inI] = number;
-            number = 0;
-            inI = 0;
-            inJ += 1;
-            flag = 0;
-        } else {
-            a[inI][inJ] = number;
-            break;
-        }
-    }
-    
-    n = inJ;
-    
+void MassiveOutput(int n, int a[][n]) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             printf("%d ", a[i][j]);
@@ -103,4 +55,63 @@ int main() {
             }
         }
     }
+}
+
+int StateUpdate(char c) {
+    if (c == '\n') {
+        return ENTER;
+    } else if (c == ' ') {
+        return SPACE;
+    } else if (c >= '0' && c <= '9') {
+        return NUM;
+    } else {
+        return END;
+    }
+}
+
+int ClayNum(char c, int num, int flag) {
+    if (flag == 1) {
+        num *= 10;
+    }
+    num += c - '0';
+    return num;
+}
+
+int main() {
+    int n = 1, maxn = 100, state = 0, flag = 0, number = 0, inI = 0, inJ = 0, size = 0;
+    int a[maxn][maxn];
+    char c;
+    while (1) {
+        c = getchar();
+        state = StateUpdate(c);
+        if (state == NUM) {
+            number = ClayNum(c, number, flag);
+            flag = 1;
+        } else if (state == SPACE) {
+            a[inJ][inI] = number;
+            number = 0;
+            inI += 1;
+            flag = 0;
+        } else if (state == ENTER) {
+            if (size != inI) {
+                MassiveOutput(n, a);
+                for (int i = 0; i < inI; i++) {
+                    a[0][i] = a[inJ][i];
+                }
+            }
+            a[inJ][inI] = number;
+            number = 0;
+            inJ += 1;
+            size = inI; 
+            inI = 0;
+            flag = 0; 
+        } else {
+            a[inI][inJ] = number;
+            MassiveOutput(n, a);
+            break;
+        }
+        printf("%d %d %d\n", size, inI, inJ);
+    }
+    
+    n = inJ;
 }
